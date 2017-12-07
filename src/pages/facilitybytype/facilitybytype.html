@@ -1,0 +1,26 @@
+<!--
+  Generated template for the FacilitybytypePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let facility of facility" id="mealOffering-list5" style="background-color: #e5e6e8;">
+    <ion-item *ngIf="facility.type == typeid" color="none" on-click="gToFacility(facility)" id="mealOffering-list-item15" style="background-color: #e5e6e8;" > 
+      <h2 class="classblack"  >
+        {{facility.name}} 
+        <ion-badge *ngIf="facility.status == 1"  color="secondary" style="float: right;" item-end>Available</ion-badge>
+        <ion-badge  *ngIf="facility.status == 0" color="danger" style="float: right;" item-end>Occupied</ion-badge>
+      </h2>
+    </ion-item>
+  </ion-card>
+</ion-content>
