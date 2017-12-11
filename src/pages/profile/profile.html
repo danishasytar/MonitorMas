@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      profile
+      Profile
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,7 +15,7 @@
         <img src="assets/img/6yOLn0P0ThKJmSFUsHSi_leo.jfif" />
       </ion-thumbnail>
       <h2>
-        Leonardo Dicaprio
+        {{name}}
       </h2>
     </ion-item>
   </ion-list>
@@ -46,7 +46,13 @@
       Departure countdown
     </ion-item-divider>
     <ion-item color="none" id="profile-list-item57">
-      1 hours 45 mins
+     {{timer.displayTime}}
+    </ion-item>
+    <ion-item-divider color="light" id="profile-list-item-divider2">
+      Departure Time
+    </ion-item-divider>
+    <ion-item color="none" id="profile-list-item57">
+     {{departuretimedisplay}}
     </ion-item>
   </ion-list>
 </ion-content>
