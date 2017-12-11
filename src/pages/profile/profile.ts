@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 
 export interface CountdownTimer {
@@ -21,28 +22,38 @@ export class ProfilePage {
 departuretime;
 departuretimedisplay;
 
-passengers = [
-		{"pass_number" : 'JL00008888', "name": 'MUHAMMAD DANISH ASYTAR', "departure": "2017-12-11T14:30:51.01"},
-		{"pass_number" : 'JL00004444', "name": 'MUHAMMAD AHMAD', "departure": "2017-12-11T18:30:51.01"}
-		]
+passengers : any;
 passengerDetail;
 name = "";
-  constructor(navParams: NavParams, public navCtrl: NavController) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, private http: HttpClient) {
+
+  	this.getdata();
   
-  	console.log(this.departuretimedisplay);
-  	let myParam = navParams.get('myParam');
+
+
+
+  }
+
+  getdata(){
+	this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
+	  .subscribe(data => {
+	    console.log(data);
+			this.passengers	= data;  
+  	console.log(this.passengers);
+  	let myParam = this.navParams.get('myParam');
   	console.log(myParam)
   	for(var i=0;i<Object.keys(this.passengers).length;i++){
-  		if(this.passengers[i].pass_number == myParam){
+  		if(this.passengers[i].boarding_pass_number == myParam){
   			this.passengerDetail = this.passengers[i];
   		}
   	}
   	console.log(this.passengerDetail);
-  	this.name = this.passengerDetail.name;
+  	this.name = this.passengerDetail.passenger_name;
  	this.departuretime = new Date( this.passengerDetail.departure);
-  	this.departuretimedisplay = this.departuretime.getHours() +':'+ this.departuretime.getMinutes()
-
-
+  	this.departuretimedisplay = this.departuretime.getHours() +':'+ this.departuretime.getMinutes()                      
+	  }, err => {
+	    console.log(err);
+	  });
   }
   
   gettime(): number {

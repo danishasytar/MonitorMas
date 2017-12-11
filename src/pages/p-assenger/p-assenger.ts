@@ -11,20 +11,16 @@ import { HttpClient } from '@angular/common/http';
 export class PASSENGERPage {
 
 		pass_number: any;
-
-		passengers = [
-		{"pass_number" : 'JL00008888', "name": 'MUHAMMAD DANISH ASYTAR', "departure": "2017-12-11T14:30:51.01"},
-		{"pass_number" : 'JL00004444', "name": 'MUHAMMAD AHMAD', "departure": "2017-12-11T18:30:51.01"}
-		]
+		passengers: any;
 
   constructor(public navCtrl: NavController, private http: HttpClient, private alertCtrl: AlertController) {
   	this.getData();
-  	console.log(this.passengers);
   }
+  
   goToProfile(){
   	var flag = false;
   	for(var i=0; i<Object.keys(this.passengers).length;i++){
-  		if(this.passengers[i].pass_number == this.pass_number.toUpperCase()){
+  		if(this.passengers[i].boarding_pass_number == this.pass_number.toUpperCase()){
   			console.log(this.pass_number)
   			flag = false;
   			this.navCtrl.push(ProfilePage, {'myParam': this.pass_number.toUpperCase()});
@@ -46,13 +42,15 @@ export class PASSENGERPage {
     // this.navCtrl.push(ProfilePage);
   }
   getData(){
-       this.http.get('http://unwilled-children.000webhostapp.com/api/type_meal',{} )
+       this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
           .subscribe(data => {
-            console.log();
-                        
+            console.log(data);
+				this.passengers	= data;                        
           }, err => {
             console.log(err);
           });
+
+
   }
 
 
