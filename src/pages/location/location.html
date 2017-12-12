@@ -16,12 +16,12 @@
     </ion-item>
     <ion-item id="location-input5">
       <ion-label>
-        ID/Name
+        Boarding pass number
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input [(ngModel)]="pass_number" name="input" type="text" placeholder=""></ion-input>
     </ion-item>
   </form>
-  <button id="location-button5" ion-button color="positive" block on-click="goToPassengerLocation()">
+  <button id="location-button5" ion-button color="positive"  block on-click="search()">
     Search
   </button>
   <h1 id="location-heading1" style="color:#000000;">

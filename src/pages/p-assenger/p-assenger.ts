@@ -17,29 +17,29 @@ export class PASSENGERPage {
   	this.getData();
   }
   
-  goToProfile(){
-  	var flag = false;
-  	for(var i=0; i<Object.keys(this.passengers).length;i++){
-  		if(this.passengers[i].boarding_pass_number == this.pass_number.toUpperCase()){
-  			console.log(this.pass_number)
-  			flag = false;
-  			this.navCtrl.push(ProfilePage, {'myParam': this.pass_number.toUpperCase()});
-  			break;
-  		}
-  		else{
-  			flag = true;
-  		}
+  goToProfile(){  
+      	var flag = false;
+      	for(var i=0; i<Object.keys(this.passengers).length;i++){
+      		if(this.passengers[i].boarding_pass_number == this.pass_number.toUpperCase()){
+      			console.log(this.pass_number)
+      			flag = false;
+      			this.navCtrl.push(ProfilePage, {'myParam': this.pass_number.toUpperCase()});
+      			break;
+      		}
+      		else{
+      			flag = true;
+      		}
 
-  	}
-  	if(flag){
-		  let alert = this.alertCtrl.create({
-		    title: 'No pass number found',
-		    buttons: ['OK']
-		  });
-		  alert.present();
-  	}
-    // if (!params) params = {};
-    // this.navCtrl.push(ProfilePage);
+      	}
+      	if(flag){
+    		  let alert = this.alertCtrl.create({
+    		    title: 'No pass number found',
+    		    buttons: ['OK']
+    		  });
+    		  alert.present();
+      	}
+        // if (!params) params = {};
+        // this.navCtrl.push(ProfilePage);
   }
   getData(){
        this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )

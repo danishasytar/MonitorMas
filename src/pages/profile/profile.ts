@@ -26,7 +26,8 @@ passengers : any;
 passengerDetail;
 name = "";
   constructor(public navParams: NavParams, public navCtrl: NavController, private http: HttpClient) {
-
+    let myParam = navParams.get('myParam');
+    console.log(myParam);
   	this.getdata();
   
 
