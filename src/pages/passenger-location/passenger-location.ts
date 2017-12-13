@@ -12,7 +12,7 @@ export class PassengerLocationPage {
 	myParam;
   imageurl;
 
-  constructor(public navParams: NavParams,public navCtrl: NavController, private http: HttpClient,) {
+  constructor(public navParams: NavParams,public navCtrl: NavController, private http: HttpClient) {
   	    this.myParam = navParams.get('myParam');
 
     	this.getData();
