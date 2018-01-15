@@ -28,6 +28,10 @@ import { FacilitybytypePage} from '../pages/facilitybytype/facilitybytype'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiProvider } from '../providers/api/api';
+
+import { Device} from '@ionic-native/device';
+import { HTTP} from '@ionic-native/http';
 
 
 @NgModule({
@@ -88,7 +92,10 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Device,
+    HTTP,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ApiProvider
   ]
 })
 export class AppModule {}

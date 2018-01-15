@@ -40,13 +40,13 @@
     <ion-item-divider color="light" id="profile-list-item-divider2">
       Departure countdown
     </ion-item-divider>
-    <ion-item color="none" id="profile-list-item57">
+    <ion-item *ngIf="displaytime" color="none" id="profile-list-item57">
      {{timer.displayTime}}
     </ion-item>
     <ion-item-divider color="light" id="profile-list-item-divider2">
       Departure Time
     </ion-item-divider>
-    <ion-item color="none" id="profile-list-item57">
+    <ion-item  color="none" id="profile-list-item57">
      {{departuretimedisplay}}
     </ion-item>
   </ion-list>

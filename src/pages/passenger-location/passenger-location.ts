@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController , NavParams} from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
+import { ApiProvider } from './../../providers/api/api';
+
 
 @Component({
   selector: 'page-passenger-location',
@@ -12,7 +13,7 @@ export class PassengerLocationPage {
 	myParam;
   imageurl;
 
-  constructor(public navParams: NavParams,public navCtrl: NavController, private http: HttpClient) {
+  constructor(public api:ApiProvider, public navParams: NavParams,public navCtrl: NavController) {
   	    this.myParam = navParams.get('myParam');
 
     	this.getData();
@@ -22,8 +23,8 @@ export class PassengerLocationPage {
 
 
   getData(){
-       this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
-          .subscribe(data => {
+       this.api.getdata('/api/passenger',{} )
+          .then(data => {
             console.log(data);
 				this.passengers	= data;    
 		    	for(var i=0; i<this.passengers.length; i++){

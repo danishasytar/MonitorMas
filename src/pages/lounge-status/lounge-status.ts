@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
+import { ApiProvider } from './../../providers/api/api';
 
 
 @Component({
@@ -11,12 +11,12 @@ export class LoungeStatusPage {
 	passengers;
 	num_in = 0;
 	num_out = 0;
-  constructor(public navCtrl: NavController, private http: HttpClient) {
+  constructor(public navCtrl: NavController, public api:ApiProvider) {
 
 
 
-       this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
-          .subscribe(data => {
+       this.api.getdata('/api/passenger',{} )
+          .then(data => {
             console.log(data);
             for(var i=0;i<Object.keys(data).length;i++){
             	if(data[i].lounge_status == '1'){

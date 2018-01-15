@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { ApiProvider } from './../../providers/api/api';
 
 
 export interface CountdownTimer {
@@ -29,105 +30,72 @@ contact_number;
 booking_number;
   pass_num;
   image;
-  constructor(public navParams: NavParams, public navCtrl: NavController, private http: HttpClient) {
+
+  displaytime = false;
+
+  constructor(public api:ApiProvider, public navParams: NavParams, public navCtrl: NavController, private http: HttpClient) {
     let myParam = navParams.get('myParam');
     console.log(myParam);
-  	// this.getdata();
-  
-
-
-
+  	this.getdata();
   }
 
- //  getdata(){
-	// this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
-	//   .subscribe(data => {
-	//     console.log(data);
-	// 		this.passengers	= data;  
- //  	console.log(this.passengers);
- //  	let myParam = this.navParams.get('myParam');
- //  	console.log(myParam)
- //  	for(var i=0;i<Object.keys(this.passengers).length;i++){
- //  		if(this.passengers[i].boarding_pass_number == myParam){
- //  			this.passengerDetail = this.passengers[i];
- //  		}
- //  	}
- //  	console.log(this.passengerDetail);
- //    this.name = this.passengerDetail.passenger_name;
- //    this.booking_number = this.passengerDetail.booking_number;
- //  	this.contact_number = this.passengerDetail.Contact_Number;
- //    this.pass_num = this.passengerDetail.boarding_pass_number;
- // 	this.departuretime = new Date( this.passengerDetail.departure);
- //  	this.departuretimedisplay = this.departuretime.getHours() +':'+ this.departuretime.getMinutes()                      
-	//   }, err => {
-	//     console.log(err);
-	//   });
-
-
- //  }
-  
-  gettime(): number {
-
-
-
-  this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
-    .subscribe(data => {
-      console.log(data);
-      this.passengers  = data;  
-    console.log(this.passengers);
-    let myParam = this.navParams.get('myParam');
-    console.log(myParam)
-    for(var i=0;i<Object.keys(this.passengers).length;i++){
-      if(this.passengers[i].boarding_pass_number == myParam){
-        this.passengerDetail = this.passengers[i];
-      }
-    }
-    console.log(this.passengerDetail);
+  getdata(){
+	this.api.getdata('/api/passenger',{} )
+	  .then(data => {
+	    console.log(data);
+			this.passengers	= data;  
+  	console.log(this.passengers);
+  	let myParam = this.navParams.get('myParam');
+  	console.log(myParam)
+  	for(var i=0;i<Object.keys(this.passengers).length;i++){
+  		if(this.passengers[i].boarding_pass_number == myParam){
+  			this.passengerDetail = this.passengers[i];
+  		}
+  	}
+  	console.log(this.passengerDetail);
     this.name = this.passengerDetail.passenger_name;
     this.booking_number = this.passengerDetail.booking_number;
-    this.contact_number = this.passengerDetail.Contact_Number;
+  	this.contact_number = this.passengerDetail.Contact_Number;
     this.pass_num = this.passengerDetail.boarding_pass_number;
-   this.departuretime = new Date( this.passengerDetail.departure);
-   this.image = this.passengerDetail.image_url;
-   console.log(this.image)
-       var d = this.departuretime; 
-    var d2 = new Date(); // for now
-    console.log(d2)
-    console.log(d)
-    this.departuretimedisplay = this.departuretime.getHours() +':'+ this.departuretime.getMinutes()                      
-    console.log(">>>>>>>>>",d)
-    console.log(">>>>>>>>>",d2)
-    return (d.getTime()-d2.getTime())/1000;
-    }, err => {
-      console.log(err);
-    });
+ 	  this.departuretime = new Date( this.passengerDetail.departure);
+  	this.departuretimedisplay = this.departuretime.getHours() +':'+ this.departuretime.getMinutes()  
+     this.startCountdown();               
+	  }, err => {
+	    console.log(err);
+	  });
+
+
+  }
 
 
 
-
-
-
-
-
-
-
-
-
-    var d = new Date("2017-12-14T14:30:51.01"); 
+  
+  gettime(): number {
+    var d = this.departuretime; 
     var d2 = new Date(); // for now
     console.log(d2)
     console.log(d)
     return (d.getTime()-d2.getTime())/1000;
   }
 
-  timeInSeconds: number = this.gettime();
+  timeInSeconds: number;
   timer: CountdownTimer;
 
-
-  ngOnInit() {
+  startCountdown() {
+    this.timeInSeconds = this.gettime();
     this.initTimer();
     this.startTimer();
   }
+
+
+
+  ngOnInit() {
+    // this.initTimer();
+    // this.startTimer();
+  }
+
+
+
 
   hasFinished() {
     return this.timer.hasFinished;
@@ -153,13 +121,6 @@ booking_number;
     this.timerTick();
   }
 
-  pauseTimer() {
-    this.timer.runTimer = false;
-  }
-
-  resumeTimer() {
-    this.startTimer();
-  }
 
   timerTick() {
     setTimeout(() => {
@@ -171,6 +132,7 @@ booking_number;
       } else {
         this.timer.hasFinished = true;
       }
+      this.displaytime = true;
     }, 1000);
   }
 

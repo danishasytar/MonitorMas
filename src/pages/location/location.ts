@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { PassengerLocationPage } from '../passenger-location/passenger-location';
-import { HttpClient } from '@angular/common/http';
+import { ApiProvider } from './../../providers/api/api';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class LocationPage {
 
 	passengers;
 	pass_number : any;
-  constructor(public navCtrl: NavController, private http: HttpClient, private alertCtrl: AlertController) {
+  constructor(public api:ApiProvider, public navCtrl: NavController, private alertCtrl: AlertController) {
   	this.getData();
   }
 
@@ -20,8 +20,8 @@ export class LocationPage {
 
 
   getData(){
-       this.http.get('http://unwilled-children.000webhostapp.com/api/passenger',{} )
-          .subscribe(data => {
+       this.api.getdata('/api/passenger',{} )
+          .then(data => {
             console.log(data);
 				this.passengers	= data;                        
           }, err => {
